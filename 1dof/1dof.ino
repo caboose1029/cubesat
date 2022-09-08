@@ -1,7 +1,7 @@
 #include <Adafruit_MPU6050.h>
 #include <Adafruit_Sensor.h>
 #include <Wire.h>
-#include "QuickPID.h"   //PID https://github.com/Dlloydev/QuickPID/blob/master/examples/PID_Basic/PID_Basic.ino
+#include <QuickPID.h>   //PID https://github.com/Dlloydev/QuickPID/blob/master/examples/PID_Basic/PID_Basic.ino
 Adafruit_MPU6050 mpu;
 
 // define pins for Nidec 24H Motor
@@ -10,7 +10,7 @@ Adafruit_MPU6050 mpu;
 #define PWM         9
 
 // Set variables for acceleration in y and z; input and output; bounds; PID
-double accY, accZ;
+double accY, accX;
 double thetaIn;
 double thetaOut;
 const double bounds = 0.5;
@@ -79,9 +79,11 @@ void setup(){
 
 void loop(){
 
-  sensors_event_t(a, g, temp);
+  sensors_event_t a, g, temp;
   mpu.getEvent(&a, &g, &temp);
-  thetaIn = atan2(accY,accZ);
+  accX = a.acceleration.x;
+  accY = a.acceleration.y;
+  thetaIn = atan2(accY,-accX);
 
   if (thetaIn > -bounds && thetaIn < bounds){
     
