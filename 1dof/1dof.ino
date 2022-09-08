@@ -79,7 +79,7 @@ void setup(){
 
 void loop(){
 
-  sensor_event_t a, g, temp;
+  sensors_event_t(a, g, temp);
   mpu.getEvent(&a, &g, &temp);
   thetaIn = atan2(accY,accZ);
 
