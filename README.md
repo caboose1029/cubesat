@@ -1,1 +1,2 @@
-# cubesat
+# EPPL CubeSat Attitude Control
+
